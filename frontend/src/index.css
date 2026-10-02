@@ -1,17 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  --color-archa-tuni: #1C332F;
-  --color-vodiy-qaragayi: #254E4C;
-  --color-archazor: #41573F;
-  --color-alp-yaylovi: #7E8F4A;
-  --color-qaragay-postlogi: #8A5236;
-  --color-zenit-osmoni: #21407C;
-  --color-yozgi-osmon: #2A6FAD;
-  --color-bulut: #A4BFD7;
-  --color-ertalabki-tuman: #D9E2E9;
-  --color-ohaktosh: #F4F4F0;
+
+  --color-primary: #21407C;
+  --color-hover: #3A5A9B;
+  --color-accent: #8FB3D9;
+  --color-light: #E6EEF7;
+  --color-beige: #D9C9B8;
+  --color-brown: #8B6F56;
+  --color-background: #F8F6F2;
+  --color-text: #1F2937;
 
   --font-heading: 'Fraunces', Georgia, serif;
   --font-body: 'Manrope', system-ui, sans-serif;
+
 }
