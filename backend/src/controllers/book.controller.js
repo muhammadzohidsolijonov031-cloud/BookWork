@@ -51,18 +51,6 @@ const create = async (req, res, next) => {
       maslahatBeraman,
     } = req.body;
 
-
-
-//   author      String
-//   language    String
-//   status      String?    @default("wishlist")
-//   rating      Int?
-//   userId      String 
-//   type        String? 
-//   hooks       String?
-//   pages       String?
-//   cost        String?    @default("0")
-//   createdAt   DateTime  @default(now())
     const item = await prisma.book.create({
       data: {
         title,

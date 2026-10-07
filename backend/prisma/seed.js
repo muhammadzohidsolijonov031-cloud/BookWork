@@ -18,6 +18,7 @@ async function main() {
         type: "Self improvement",
         hooks: "Habit",
         pages: "300",
+        maslahatBeraman: true,
         cost: "10",
       },
       {
@@ -32,6 +33,7 @@ async function main() {
         type: "Literature",
         hooks: "Story",
         pages: "221",
+        maslahatBeraman: true,
         cost: "22",
       },
       {
@@ -47,6 +49,7 @@ async function main() {
         type: "Literature",
         hooks: "Story",
         pages: "221",
+        maslahatBeraman: true,
         cost: "22",
       },
       {
@@ -61,6 +64,7 @@ async function main() {
         type: "Literature",
         hooks: "Story",
         pages: "194",
+        maslahatBeraman: true,
         cost: "12",
       },
       {
@@ -75,6 +79,7 @@ async function main() {
         type: "Literature",
         hooks: "Story",
         pages: "221",
+        maslahatBeraman: true,
         cost: "22",
       },
     ],
