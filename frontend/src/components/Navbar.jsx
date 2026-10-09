@@ -32,7 +32,7 @@ function Navbar() {
             </SignInButton>
           </Show>
 
-          <SignUpButton when="signed-out" mode="modal">
+          <SignUpButton when="signed-in" mode="modal">
             <button className="bg-archazor text-ohaktosh px-4 py-2 rounded-lg hover:opacity-90 transition font-medium">
               Ro'yxatdan o'tish
             </button>
