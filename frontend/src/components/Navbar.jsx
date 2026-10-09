@@ -32,13 +32,19 @@ function Navbar() {
             </SignInButton>
           </Show>
 
-          <SignUpButton when="signed-out" mode="modal">
-            <button className="bg-archazor text-ohaktosh px-4 py-2 rounded-lg hover:opacity-90 transition font-medium">
-              Ro'yxatdan o'tish
-            </button>
-          </SignUpButton>
+          <Show when="signed-out">
+            <SignUpButton when="signed-out" mode="modal">
+              <button className="bg-archazor text-ohaktosh px-4 py-2 rounded-lg hover:opacity-90 transition font-medium">
+                Ro'yxatdan o'tish
+              </button>
+            </SignUpButton>
+          </Show>
 
           <Show when="signed-out">
+            <UserButton afterSignOutUrl="/" />
+          </Show>
+
+          <Show when="signed-in">
             <UserButton afterSignOutUrl="/" />
           </Show>
         </nav>
