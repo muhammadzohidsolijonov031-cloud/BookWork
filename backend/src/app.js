@@ -36,10 +36,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use((req, res) => {
-  res.status(404).json({ success: false, error: "Endpoint topilmadi" });
-});
-
 const bookRoutes = require("./routes/book.routes.js");
 
 app.get("/health", (req, res) => {
@@ -60,4 +56,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ success: false, error: err.message });
 });
 
+app.use((req, res) => {
+  res.status(404).json({ success: false, error: "Endpoint topilmadi" });
+});
 module.exports = app;
