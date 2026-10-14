@@ -2,18 +2,23 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const path = require("node:path");
 const { clerkMiddleware, getAuth } = require("@clerk/express");
+const communityRoutes = require("./routes/community.routes.js");
 
 const app = express();
 
 app.use(morgan("dev"));
 app.use(
   cors({
-    origin: "http://localhost:/5174",
+    // origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    // allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.use(clerkMiddleware());
 app.get("/whoami", (req, res) => {
@@ -47,6 +52,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/books", bookRoutes);
+app.use("/community", communityRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);

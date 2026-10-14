@@ -1,48 +1,56 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { SignInButton, SignUpButton } from "@clerk/react";
-import { useAuth } from "@clerk/react";
-import libraryhomefon from "../assets/libraryfon.png";
+import { SignInButton, SignUpButton, useAuth } from "@clerk/react";
+
 function Home() {
   const { isSignedIn, isLoaded } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLoaded && isSignedIn) {
-      navigate("/dashboard");
-    }
+    if (isLoaded && isSignedIn) navigate("/discover", { replace: true });
   }, [isLoaded, isSignedIn, navigate]);
 
   return (
-    <div
-      className="flex flex-col items-center justify-center py-24 px-4 text-center"
-      style={{
-        backgroundClip: `${libraryhomefon}`,
-        backgroundPosition: "center 75%",
-      }}
-    >
-      <div className="text-7xl mb-6">📖</div>
+    <main className="landing-page">
+      <section className="landing-hero">
+        <p className="eyebrow">KITOBXONLAR UCHUN YANGI MAKON</p>
+        <h1>
+          Kitoblar sizni
+          <br />
+          <span>yangi olamlarga olib boradi.</span>
+        </h1>
+        <p className="landing-description">
+          Sevimli kitoblaringizni toping va kutubxonangizga qo‘shing. Fikr
+          almashing, o‘qish uchun hamroh va kitobxonlar guruhini toping.
+        </p>
+        <div className="landing-actions">
+          <SignUpButton mode="modal">
+            <button className="landing-primary-button">Kutubxonamni yaratish</button>
+          </SignUpButton>
+          <SignInButton mode="modal">
+            <button className="landing-secondary-button">Hisobimga kirish</button>
+          </SignInButton>
+        </div>
+      </section>
 
-      <h1 className="font-heading text-5xl text-matn mb-4">Books Life</h1>
-
-      <p className="text-lg text-ikkilamchi max-w-xl mb-8">
-        Kitob o'qishni boshlama uni davom ettir!{" "}
-      </p>
-
-      <div className="flex flex-wrap gap-4 justify-center">
-        <SignUpButton mode="modal">
-          <button className="bg-sky-600 text-white px-6 py-3 rounded-lg hover:opacity-90 transition font-medium">
-            Boshlash
-          </button>
-        </SignUpButton>
-
-        <SignInButton mode="modal">
-          <button className="border border-ikkilamchi text-matn px-6 py-3 rounded-lg hover:bg-ertalabki-tuman transition font-medium">
-            Hisobim bor
-          </button>
-        </SignInButton>
-      </div>
-    </div>
+      <section className="landing-features" aria-label="BookWork imkoniyatlari">
+        <article>
+          <span aria-hidden="true">⌕</span>
+          <h2>Toping</h2>
+          <p>Turli janrlardagi kitoblarni izlang va o‘quvchilar tavsiyasini ko‘ring.</p>
+        </article>
+        <article>
+          <span aria-hidden="true">▤</span>
+          <h2>Yig‘ing</h2>
+          <p>Shaxsiy kutubxonangizni yarating va o‘qish rejangizni saqlang.</p>
+        </article>
+        <article>
+          <span aria-hidden="true">◎</span>
+          <h2>Ulashib o‘qing</h2>
+          <p>Sharh qoldiring, kitobxon do‘st toping va o‘qish guruhiga qo‘shiling.</p>
+        </article>
+      </section>
+    </main>
   );
 }
 

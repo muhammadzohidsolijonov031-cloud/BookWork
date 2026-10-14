@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Book" ADD COLUMN     "readCount" INTEGER NOT NULL DEFAULT 0;

@@ -14,19 +14,158 @@ datasource db {
 }
 
 model Book {
-  id          Int       @id @default(autoincrement())
-  title       String
-  description String?
-  imageUrl    String?
-  author      String
-  language    String
-  status      String?    @default("wishlist")
-  rating      Int?
-  userId      String   //Clerk dan keladi
-  type        String? 
-  hooks       String?
-  pages       String?
-  maslahatBeraman Boolean @default(true)
-  cost        String?    @default("0")
-  createdAt   DateTime  @default(now())
+  id                Int          @id @default(autoincrement())
+  title             String
+  description       String?
+  imageUrl          String?
+  pdfUrl            String?
+  licenseConfirmed  Boolean      @default(false)
+  isPublic          Boolean      @default(false)
+  author            String
+  language          String
+  status            String?      @default("wishlist")
+  rating            Int?
+  userId            String
+  type              String?
+  hooks             String?
+  pages             String?
+  maslahatBeraman   Boolean      @default(true)
+  cost              String?      @default("0")
+  viewCount         Int          @default(0)
+  readCount         Int          @default(0)
+  createdAt         DateTime     @default(now())
+  reviews           BookReview[]
+  posts             BookPost[]
+  partnerInterests  PartnerInterest[]
+
+  @@index([type])
+  @@index([viewCount])
+}
+
+model BookReview {
+  id        Int      @id @default(autoincrement())
+  bookId    Int
+  userId    String
+  content   String
+  rating    Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  reader    ReaderProfile @relation(fields: [userId], references: [userId], onDelete: Restrict)
+
+  @@unique([bookId, userId])
+  @@index([bookId, createdAt])
+}
+
+model BookPost {
+  id        Int           @id @default(autoincrement())
+  bookId    Int
+  userId    String
+  kind      String        @default("THOUGHT")
+  content   String
+  excerpt   String?
+  location  String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  book      Book          @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  reader    ReaderProfile @relation(fields: [userId], references: [userId], onDelete: Restrict)
+
+  @@index([bookId, createdAt])
+}
+
+model ReaderProfile {
+  userId           String        @id
+  displayName      String
+  bio              String?
+  genres           String[]      @default([])
+  openToPartners   Boolean       @default(false)
+  updatedAt        DateTime      @updatedAt
+  groupMemberships GroupMember[]
+  reviews          BookReview[]
+  posts            BookPost[]
+  partnerInterests PartnerInterest[]
+  connectionsA     PartnerConnection[] @relation("PartnerA")
+  connectionsB     PartnerConnection[] @relation("PartnerB")
+  notifications    Notification[]
+  sentMessages     ChatMessage[] @relation("MessageSender")
+  receivedMessages ChatMessage[] @relation("MessageRecipient")
+}
+
+model ReadingGroup {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String
+  genre       String?
+  ownerId     String
+  createdAt   DateTime      @default(now())
+  members     GroupMember[]
+  messages    ChatMessage[]
+
+  @@index([genre])
+}
+
+model GroupMember {
+  id       Int           @id @default(autoincrement())
+  groupId  Int
+  userId   String
+  joinedAt DateTime      @default(now())
+  group    ReadingGroup  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  reader   ReaderProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+}
+
+model PartnerInterest {
+  id        Int           @id @default(autoincrement())
+  userId    String
+  bookId    Int
+  createdAt DateTime      @default(now())
+  reader    ReaderProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  book      Book          @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, bookId])
+  @@index([bookId])
+}
+
+model PartnerConnection {
+  id          Int           @id @default(autoincrement())
+  userA       String
+  userB       String
+  bookTitle   String
+  createdAt   DateTime      @default(now())
+  readerA     ReaderProfile @relation("PartnerA", fields: [userA], references: [userId], onDelete: Cascade)
+  readerB     ReaderProfile @relation("PartnerB", fields: [userB], references: [userId], onDelete: Cascade)
+
+  @@unique([userA, userB, bookTitle])
+  @@index([userA])
+  @@index([userB])
+}
+
+model Notification {
+  id        Int           @id @default(autoincrement())
+  userId    String
+  type      String
+  message   String
+  data      Json?
+  createdAt DateTime      @default(now())
+  readAt    DateTime?
+  reader    ReaderProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model ChatMessage {
+  id          Int           @id @default(autoincrement())
+  senderId    String
+  recipientId String?
+  groupId     Int?
+  content     String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  sender      ReaderProfile @relation("MessageSender", fields: [senderId], references: [userId], onDelete: Cascade)
+  recipient   ReaderProfile? @relation("MessageRecipient", fields: [recipientId], references: [userId], onDelete: Cascade)
+  group       ReadingGroup? @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([senderId, recipientId, createdAt])
+  @@index([groupId, createdAt])
 }
