@@ -13,7 +13,7 @@ function Home() {
   return (
     <main className="landing-page">
       <section className="landing-hero">
-        <p className="eyebrow">KITOBXONLAR UCHUN YANGI MAKON</p>
+        <p className="eyebrow">KITOBXONLAR UCHUN YANGI DUNYO</p>
         <h1>
           Kitoblar sizni
           <br />
@@ -37,17 +37,17 @@ function Home() {
         <article>
           <span aria-hidden="true">⌕</span>
           <h2>Toping</h2>
-          <p>Turli janrlardagi kitoblarni izlang va o‘quvchilar tavsiyasini ko‘ring.</p>
+          <p>Turli janrlardagi kitoblarni izlang va tavsiyalarni ko'ring.</p>
         </article>
         <article>
           <span aria-hidden="true">▤</span>
-          <h2>Yig‘ing</h2>
+          <h2>Kolleksiya qiling.</h2>
           <p>Shaxsiy kutubxonangizni yarating va o‘qish rejangizni saqlang.</p>
         </article>
         <article>
           <span aria-hidden="true">◎</span>
-          <h2>Ulashib o‘qing</h2>
-          <p>Sharh qoldiring, kitobxon do‘st toping va o‘qish guruhiga qo‘shiling.</p>
+          <h2>Bir muhitda o'qing</h2>
+          <p>Sharh qoldiring, kitobxon do‘st toping va fikrlar guruhiga qo‘shiling.</p>
         </article>
       </section>
     </main>

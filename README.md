@@ -7,6 +7,19 @@
 - `backend/` — Express + Prisma + Clerk backend
 - `frontend/` — Vite + React + Tailwind + Clerk frontend
 
+## Render backend deployment
+
+Render’da backend web service uchun **Root Directory** qiymati `backend`,
+**Build Command** qiymati `npm install`, **Start Command** qiymati `npm start`
+bo‘lishi kerak. `npm install` deploy vaqtida Prisma Client’ni `schema.prisma`
+asosida qayta yaratadi.
+
+Production bazasiga yangi Prisma migratsiyalarini bir marta qo‘llash uchun
+Render Shell’da `npx prisma migrate deploy` buyrug‘ini ishga tushiring.
+Frontend Vercel environment variables ichidagi `VITE_API_URL` esa Render
+backend’ining `https://...onrender.com` manzili bo‘lishi kerak. Environment
+variable o‘zgartirilgandan keyin Vercel frontend’ni qayta deploy qiling.
+
 ## Kitob muqovasini yuklash
 
 Kitobni tahrirlash oynasida muqovani JPG, PNG yoki WebP fayl sifatida (5 MB gacha)

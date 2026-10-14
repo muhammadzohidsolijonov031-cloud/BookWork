@@ -4,6 +4,7 @@
   "description": "Kolleksiya veb dasturi",
   "main": "src/server.js",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "db:seed": "node prisma/seed.js",
