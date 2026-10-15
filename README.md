@@ -27,6 +27,11 @@ Frontend Vercel environment variables ichidagi `VITE_API_URL` esa Render
 backend’ining `https://...onrender.com` manzili bo‘lishi kerak. Environment
 variable o‘zgartirilgandan keyin Vercel frontend’ni qayta deploy qiling.
 
+Ommaviy katalogga 5 janr bo‘yicha 25 ta klassik kitobni qo‘shish uchun
+`cd backend && npm run db:seed` buyrug‘ini ishlating. Seed mavjud kitoblarni
+o‘chirmaydi va takror ishga tushirilganda dublikat qo‘shmaydi. Bu namunaviy
+yozuvlarda o‘qish uchun PDF havolalari kiritilmagan.
+
 ## Kitob muqovasini yuklash
 
 Kitobni tahrirlash oynasida muqovani JPG, PNG yoki WebP fayl sifatida (5 MB gacha)

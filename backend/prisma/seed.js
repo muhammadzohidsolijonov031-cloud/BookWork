@@ -1,97 +1,250 @@
 const { PrismaClient } = require("@prisma/client");
+
 const prisma = new PrismaClient();
+const catalogUserId = "bookwork-public-catalog";
+
+const books = [
+  {
+    title: "Pride and Prejudice",
+    author: "Jane Austen",
+    type: "Badiiy adabiyot",
+    description: "Muhabbat, oila va jamiyat haqidagi mashhur klassik roman.",
+    language: "English",
+    pages: "432",
+  },
+  {
+    title: "Jane Eyre",
+    author: "Charlotte Bronte",
+    type: "Badiiy adabiyot",
+    description: "Mustaqillik va muhabbat yo‘lini izlagan Jane Eyre hikoyasi.",
+    language: "English",
+    pages: "500",
+  },
+  {
+    title: "Great Expectations",
+    author: "Charles Dickens",
+    type: "Badiiy adabiyot",
+    description: "Pip ismli bolaning ulg‘ayishi va hayotdagi o‘rnini topishi haqida roman.",
+    language: "English",
+    pages: "544",
+  },
+  {
+    title: "The Picture of Dorian Gray",
+    author: "Oscar Wilde",
+    type: "Badiiy adabiyot",
+    description: "Go‘zallik, vijdon va tanlovlar oqibatlari haqida falsafiy roman.",
+    language: "English",
+    pages: "254",
+  },
+  {
+    title: "The Adventures of Tom Sawyer",
+    author: "Mark Twain",
+    type: "Badiiy adabiyot",
+    description: "Tom Sawyerning bolalik sarguzashtlari va do‘stligi haqida asar.",
+    language: "English",
+    pages: "274",
+  },
+  {
+    title: "Treasure Island",
+    author: "Robert Louis Stevenson",
+    type: "Sarguzasht",
+    description: "Jim Hawkins va xazina xaritasi ortidan boshlangan dengiz sarguzashti.",
+    language: "English",
+    pages: "292",
+  },
+  {
+    title: "Around the World in Eighty Days",
+    author: "Jules Verne",
+    type: "Sarguzasht",
+    description: "Phileas Foggning sakson kunda dunyoni aylanib chiqish poygasi.",
+    language: "English",
+    pages: "256",
+  },
+  {
+    title: "The Three Musketeers",
+    author: "Alexandre Dumas",
+    type: "Sarguzasht",
+    description: "D’Artagnan va mushketyorlarning do‘stlik hamda jasoratga boy hikoyasi.",
+    language: "English",
+    pages: "700",
+  },
+  {
+    title: "King Solomon's Mines",
+    author: "H. Rider Haggard",
+    type: "Sarguzasht",
+    description: "Afrika ichkarisidagi sirli xazina izidan kechgan ekspeditsiya.",
+    language: "English",
+    pages: "320",
+  },
+  {
+    title: "The Call of the Wild",
+    author: "Jack London",
+    type: "Sarguzasht",
+    description: "Buck ismli itning shimoliy tabiatdagi sinovlari va omon qolishi.",
+    language: "English",
+    pages: "172",
+  },
+  {
+    title: "Frankenstein",
+    author: "Mary Shelley",
+    type: "Fantastika",
+    description: "Olim yaratgan mavjudot va uning insoniyat bilan murakkab munosabati.",
+    language: "English",
+    pages: "280",
+  },
+  {
+    title: "The Time Machine",
+    author: "H. G. Wells",
+    type: "Fantastika",
+    description: "Vaqt mashinasida uzoq kelajakka sayohat qilgan ixtirochi hikoyasi.",
+    language: "English",
+    pages: "118",
+  },
+  {
+    title: "The War of the Worlds",
+    author: "H. G. Wells",
+    type: "Fantastika",
+    description: "Yerga kelgan marsliklar va insoniyatning omon qolish kurashi.",
+    language: "English",
+    pages: "287",
+  },
+  {
+    title: "The Invisible Man",
+    author: "H. G. Wells",
+    type: "Fantastika",
+    description: "Ko‘rinmaslik sirini topgan olimning kutilmagan oqibatlarga duch kelishi.",
+    language: "English",
+    pages: "190",
+  },
+  {
+    title: "Twenty Thousand Leagues Under the Seas",
+    author: "Jules Verne",
+    type: "Fantastika",
+    description: "Nautilus suvosti kemasida okean qa’riga qilingan ilmiy sayohat.",
+    language: "English",
+    pages: "496",
+  },
+  {
+    title: "The Histories",
+    author: "Herodotus",
+    type: "Tarix",
+    description: "Qadimgi xalqlar va yunon-fors urushlari haqida tarixiy manba.",
+    language: "English",
+    pages: "800",
+  },
+  {
+    title: "The History of the Peloponnesian War",
+    author: "Thucydides",
+    type: "Tarix",
+    description: "Afina va Sparta o‘rtasidagi urush hamda uning sabablari tahlili.",
+    language: "English",
+    pages: "600",
+  },
+  {
+    title: "The Prince",
+    author: "Niccolo Machiavelli",
+    type: "Tarix",
+    description: "Uyg‘onish davri siyosati va davlat boshqaruvi haqida risola.",
+    language: "English",
+    pages: "140",
+  },
+  {
+    title: "The Art of War",
+    author: "Sun Tzu",
+    type: "Tarix",
+    description: "Harbiy strategiya va rejalashtirishga oid qadimiy risola.",
+    language: "English",
+    pages: "120",
+  },
+  {
+    title: "The Federalist Papers",
+    author: "Alexander Hamilton, James Madison, John Jay",
+    type: "Tarix",
+    description: "AQSh konstitutsiyasi va davlat tuzilishi haqidagi tarixiy maqolalar.",
+    language: "English",
+    pages: "600",
+  },
+  {
+    title: "On the Origin of Species",
+    author: "Charles Darwin",
+    type: "Ilm-fan",
+    description: "Tabiiy tanlanish va turlar evolyutsiyasi nazariyasining bayoni.",
+    language: "English",
+    pages: "502",
+  },
+  {
+    title: "The Voyage of the Beagle",
+    author: "Charles Darwin",
+    type: "Ilm-fan",
+    description: "Darwinning tabiat kuzatuvlari va ilmiy safar xotiralari.",
+    language: "English",
+    pages: "500",
+  },
+  {
+    title: "The Descent of Man",
+    author: "Charles Darwin",
+    type: "Ilm-fan",
+    description: "Inson evolyutsiyasi va tabiiy tanlanish haqidagi ilmiy asar.",
+    language: "English",
+    pages: "700",
+  },
+  {
+    title: "The Expression of the Emotions in Man and Animals",
+    author: "Charles Darwin",
+    type: "Ilm-fan",
+    description: "Inson va hayvonlarda hissiyotlarning namoyon bo‘lishi bo‘yicha tadqiqot.",
+    language: "English",
+    pages: "374",
+  },
+  {
+    title: "The Chemical History of a Candle",
+    author: "Michael Faraday",
+    type: "Ilm-fan",
+    description: "Kundalik sham misolida kimyo va fizikani tushuntiruvchi ma’ruzalar.",
+    language: "English",
+    pages: "160",
+  },
+].map((book) => ({
+  ...book,
+  userId: catalogUserId,
+  isPublic: true,
+  licenseConfirmed: true,
+  pdfUrl: null,
+  imageUrl: null,
+  status: "read",
+  cost: "0",
+  maslahatBeraman: true,
+}));
 
 async function main() {
-  await prisma.book.deleteMany();
-  await prisma.book.createMany({
-    data: [
-      {
-        title: "Atomic habits",
-        description:
-          "It`s like th diemond for people who want to improve any habit!",
-        imageUrl:
-          "https://www.google.com/imgres?q=Atomic%20habits%20bok&imgurl=https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F8106lPWfXpL._AC_UF1000%2C1000_QL80_.jpg&imgrefurl=https%3A%2F%2Fwww.amazon.com%2FAtomic-Habits-Proven-Build-Break%2Fdp%2F0735211299&docid=6KofreUAPSQuIM&tbnid=9PN0RRTcV0TCLM&vet=12ahUKEwj3r6-RkZuXAxU1S_EDHa53PL0QnPAOegQIOhAA..i&w=663&h=1000&hcb=2&itg=1&ved=2ahUKEwj3r6-RkZuXAxU1S_EDHa53PL0QnPAOegQIOhAA",
-        author: "Cal Newport",
-        language: "English",
-        // rating:      Int?
-        userId: "userid test",
-        type: "Self improvement",
-        hooks: "Habit",
-        pages: "300",
-        maslahatBeraman: true,
-        cost: "10",
-      },
-      {
-        title: "Shum bola",
-        description: "The story of the boy",
-        imageUrl:
-          "https://www.google.com/imgres?q=shum%20bola%20kitobi&imgurl=https%3A%2F%2Fasarlar-assets-prod.s3.eu-north-1.amazonaws.com%2Fcovers%2Fmedium%2Fshum-bola_69b7ed5a7a5c8_1773661530.webp&imgrefurl=https%3A%2F%2Fasarlar.uz%2Fkitob%2Fshum-bola&docid=szm0dk5d8kC6UM&tbnid=nxO7T9FqNHfAQM&vet=12ahUKEwjK6MiukpuXAxUVVqQEHT-8KZ8QnPAOegUIwwEQAA..i&w=400&h=628&hcb=2&ved=2ahUKEwjK6MiukpuXAxUVVqQEHT-8KZ8QnPAOegUIwwEQAA",
-        author: "Gafur Gulom",
-        language: "Uzbek",
-        // rating:      Int?
-        userId: "user_test_001",
-        type: "Literature",
-        hooks: "Story",
-        pages: "221",
-        maslahatBeraman: true,
-        cost: "22",
-      },
-      {
-        title: "Bir vijdon uyg`onur",
-        description:
-          "Har qanday inson u qay darajadagi yomon bo'lsada vijdon uyg'otilsa uni bu yo'ldan qaytarsa bo'ladi!",
-        imageUrl:
-          "https://www.google.com/imgres?q=shum%20bola%20kitobi&imgurl=https%3A%2F%2Fasarlar-assets-prod.s3.eu-north-1.amazonaws.com%2Fcovers%2Fmedium%2Fshum-bola_69b7ed5a7a5c8_1773661530.webp&imgrefurl=https%3A%2F%2Fasarlar.uz%2Fkitob%2Fshum-bola&docid=szm0dk5d8kC6UM&tbnid=nxO7T9FqNHfAQM&vet=12ahUKEwjK6MiukpuXAxUVVqQEHT-8KZ8QnPAOegUIwwEQAA..i&w=400&h=628&hcb=2&ved=2ahUKEwjK6MiukpuXAxUVVqQEHT-8KZ8QnPAOegUIwwEQAA",
-        author: "Ahamad Lutfiy Qozonchi",
-        language: "Uzbek",
-        // rating:      Int?
-        userId: "user_test_002",
-        type: "Literature",
-        hooks: "Story",
-        pages: "221",
-        maslahatBeraman: true,
-        cost: "22",
-      },
-      {
-        title: "Qora Ko'z Majnun",
-        description: "Hayvonlarni insonlarga nisbatan muhabbati haqida",
-        imageUrl:
-          "https://www.google.com/imgres?q=shum%20bola%20kitobi&imgurl=https%3A%2F%2Fasarlar-assets-prod.s3.eu-north-1.amazonaws.com%2Fcovers%2Fmedium%2Fshum-bola_69b7ed5a7a5c8_1773661530.webp&imgrefurl=https%3A%2F%2Fasarlar.uz%2Fkitob%2Fshum-bola&docid=szm0dk5d8kC6UM&tbnid=nxO7T9FqNHfAQM&vet=12ahUKEwjK6MiukpuXAxUVVqQEHT-8KZ8QnPAOegUIwwEQAA..i&w=400&h=628&hcb=2&ved=2ahUKEwjK6MiukpuXAxUVVqQEHT-8KZ8QnPAOegUIwwEQAA",
-        author: "Gafur Gulom",
-        language: "Uzbek",
-        // rating:      Int?
-        userId: "user_test_003",
-        type: "Literature",
-        hooks: "Story",
-        pages: "194",
-        maslahatBeraman: true,
-        cost: "12",
-      },
-      {
-        title: "Shum bola",
-        description: "The story of the boy",
-        imageUrl:
-          "https://www.google.com/imgres?q=shum%20bola%20kitobi&imgurl=https%3A%2F%2Fasarlar-assets-prod.s3.eu-north-1.amazonaws.com%2Fcovers%2Fmedium%2Fshum-bola_69b7ed5a7a5c8_1773661530.webp&imgrefurl=https%3A%2F%2Fasarlar.uz%2Fkitob%2Fshum-bola&docid=szm0dk5d8kC6UM&tbnid=nxO7T9FqNHfAQM&vet=12ahUKEwjK6MiukpuXAxUVVqQEHT-8KZ8QnPAOegUIwwEQAA..i&w=400&h=628&hcb=2&ved=2ahUKEwjK6MiukpuXAxUVVqQEHT-8KZ8QnPAOegUIwwEQAA",
-        author: "Gafur Gulom",
-        language: "Uzbek",
-        // rating:      Int?
-        userId: "user_test_004",
-        type: "Literature",
-        hooks: "Story",
-        pages: "221",
-        maslahatBeraman: true,
-        cost: "22",
-      },
-    ],
+  const existingBooks = await prisma.book.findMany({
+    where: { userId: catalogUserId },
+    select: { title: true },
+  });
+  const existingTitles = new Set(existingBooks.map(({ title }) => title));
+  const newBooks = books.filter(({ title }) => !existingTitles.has(title));
+
+  if (newBooks.length) {
+    await prisma.book.createMany({ data: newBooks });
+  }
+
+  const counts = await prisma.book.groupBy({
+    by: ["type"],
+    where: { userId: catalogUserId },
+    _count: { _all: true },
+    orderBy: { type: "asc" },
   });
 
-  console.log("Seed data muvaffaqiyatli qo'shildi");
+  console.log(
+    `Katalog tayyor: ${newBooks.length} ta yangi kitob qo‘shildi. Janrlar:`,
+    counts.map(({ type, _count }) => `${type}: ${_count._all}`).join(", "),
+  );
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
+  .catch((error) => {
+    console.error("Kitoblar katalogini to‘ldirib bo‘lmadi:", error);
+    process.exitCode = 1;
   })
   .finally(async () => {
     await prisma.$disconnect();
