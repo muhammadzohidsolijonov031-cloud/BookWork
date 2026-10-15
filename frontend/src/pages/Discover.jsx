@@ -46,8 +46,8 @@ function Discover() {
       <div className="platform-container">
         <header className="platform-heading">
           <p className="eyebrow">KITOBXONLAR KUTUBXONASI</p>
-          <h1>Keyingi hikoyangizni toping.</h1>
-          <p>Qidiring, ko‘rib chiqing va o‘qish uchun ochiq manbalarni toping.</p>
+          <h1>Ikkinchi olamni Kash eting.</h1>
+          <p>Qidiring, ko‘rib chiqing va o‘qish uchun eng munosibini o'qing.</p>
         </header>
 
         <section className="discover-tools">

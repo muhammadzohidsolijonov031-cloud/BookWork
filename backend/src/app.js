@@ -9,9 +9,27 @@ const communityRoutes = require("./routes/community.routes.js");
 const app = express();
 
 app.use(morgan("dev"));
+const frontendOrigins = (process.env.FRONTEND_URL || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+const isLocalFrontend = (origin) => {
+  try {
+    const url = new URL(origin);
+    return url.protocol === "http:" && ["localhost", "127.0.0.1"].includes(url.hostname);
+  } catch {
+    return false;
+  }
+};
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: (origin, callback) => {
+      callback(
+        null,
+        !origin || isLocalFrontend(origin) || frontendOrigins.includes(origin),
+      );
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
