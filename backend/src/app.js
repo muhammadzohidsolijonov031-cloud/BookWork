@@ -10,6 +10,17 @@ const app = express();
 
 app.use(morgan("dev"));
 const productionFrontendOrigin = "https://book-work-eight.vercel.app";
+const isVercelProjectDeployment = (origin) => {
+  try {
+    const url = new URL(origin);
+    return (
+      url.protocol === "https:" &&
+      /^book-work-[a-z0-9-]+-najot-ta-lim1\.vercel\.app$/.test(url.hostname)
+    );
+  } catch {
+    return false;
+  }
+};
 const frontendOrigins = (process.env.FRONTEND_URL || "")
   .split(",")
   .map((origin) => origin.trim())
@@ -31,6 +42,7 @@ app.use(
         !origin ||
           isLocalFrontend(origin) ||
           origin === productionFrontendOrigin ||
+          isVercelProjectDeployment(origin) ||
           frontendOrigins.includes(origin),
       );
     },

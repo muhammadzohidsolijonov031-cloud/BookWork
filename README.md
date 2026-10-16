@@ -17,8 +17,10 @@ asosida qayta yaratadi.
 Production sayt uchun bitta asosiy manzil:
 `https://book-work-eight.vercel.app`. Render environment variables ichida
 `FRONTEND_URL` qiymatini shu manzilga qo‘ying. Backend lokal `localhost`
-manzillariga ham development uchun avtomatik ruxsat beradi. URL’da `https://`
-yoki `http://` protokoli to‘liq yozilgan bo‘lishi kerak.
+manzillariga ham development uchun avtomatik ruxsat beradi. Shu Vercel
+loyihasining preview deployment manzillari ham API bilan ishlaydi; ularni
+ommaga ulashish shart emas. URL’da `https://` yoki `http://` protokoli to‘liq
+yozilgan bo‘lishi kerak.
 
 Production bazasiga yangi Prisma migratsiyalarini bir marta qo‘llash uchun
 Render Shell’da `npx prisma migrate deploy` buyrug‘ini ishga tushiring.
