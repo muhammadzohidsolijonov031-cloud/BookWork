@@ -14,12 +14,11 @@ Render’da backend web service uchun **Root Directory** qiymati `backend`,
 bo‘lishi kerak. `npm install` deploy vaqtida Prisma Client’ni `schema.prisma`
 asosida qayta yaratadi.
 
-Render environment variables ichida `FRONTEND_URL` qiymatiga Vercel
-deployment sahifasida ko‘rsatilgan domenlarni vergul bilan ajrating. Hozirgi
-loyiha domenlari:
-`https://book-work-git-main-najot-ta-lim1.vercel.app,https://book-work-mcl3arglj-najot-ta-lim1.vercel.app`.
-Lokal `localhost` manzillari development uchun avtomatik ruxsat etiladi.
-URL’da `https://` yoki `http://` protokoli to‘liq yozilgan bo‘lishi kerak.
+Production sayt uchun bitta asosiy manzil:
+`https://book-work-eight.vercel.app`. Render environment variables ichida
+`FRONTEND_URL` qiymatini shu manzilga qo‘ying. Backend lokal `localhost`
+manzillariga ham development uchun avtomatik ruxsat beradi. URL’da `https://`
+yoki `http://` protokoli to‘liq yozilgan bo‘lishi kerak.
 
 Production bazasiga yangi Prisma migratsiyalarini bir marta qo‘llash uchun
 Render Shell’da `npx prisma migrate deploy` buyrug‘ini ishga tushiring.

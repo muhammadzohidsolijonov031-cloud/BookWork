@@ -9,6 +9,7 @@ const communityRoutes = require("./routes/community.routes.js");
 const app = express();
 
 app.use(morgan("dev"));
+const productionFrontendOrigin = "https://book-work-eight.vercel.app";
 const frontendOrigins = (process.env.FRONTEND_URL || "")
   .split(",")
   .map((origin) => origin.trim())
@@ -27,7 +28,10 @@ app.use(
     origin: (origin, callback) => {
       callback(
         null,
-        !origin || isLocalFrontend(origin) || frontendOrigins.includes(origin),
+        !origin ||
+          isLocalFrontend(origin) ||
+          origin === productionFrontendOrigin ||
+          frontendOrigins.includes(origin),
       );
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
