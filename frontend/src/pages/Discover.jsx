@@ -46,7 +46,7 @@ function Discover() {
       <div className="platform-container">
         <header className="platform-heading">
           <p className="eyebrow">KITOBXONLAR KUTUBXONASI</p>
-          <h1>Ikkinchi olamni Kashf eting.</h1>
+          <h1>Ikkinchi olamni Kashf eting!</h1>
           <p>Qidiring, ko‘rib chiqing va o‘qish uchun eng munosibini o'qing.</p>
         </header>
 
@@ -68,30 +68,53 @@ function Discover() {
               onChange={(event) => setSelectedGenre(event.target.value)}
             >
               <option value="">Barcha janrlar</option>
-              {genres.map((genre) => <option key={genre} value={genre}>{genre}</option>)}
+              {genres.map((genre) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
             </select>
           </label>
-          <Link className="primary-action discover-recommendations" to="/recommendations">
+          <Link
+            className="primary-action discover-recommendations"
+            to="/recommendations"
+          >
             Tavsiyalarim
           </Link>
         </section>
 
-        {isLoading && <p className="library-message">Kitoblar yuklanmoqda...</p>}
-        {error && <p className="error-message" role="alert">{error}</p>}
+        {isLoading && (
+          <p className="library-message">Kitoblar yuklanmoqda...</p>
+        )}
+        {error && (
+          <p className="error-message" role="alert">
+            {error}
+          </p>
+        )}
         {!isLoading && !error && visibleBooks.length > 0 && (
           <div className="discover-grid">
             {visibleBooks.map((book) => (
-              <Link className="discover-card" to={`/book/${book.id}`} key={book.id}>
+              <Link
+                className="discover-card"
+                to={`/book/${book.id}`}
+                key={book.id}
+              >
                 {book.imageUrl ? (
                   <img src={book.imageUrl} alt="" />
                 ) : (
-                  <span className="discover-cover" aria-hidden="true">📖</span>
+                  <span className="discover-cover" aria-hidden="true">
+                    📖
+                  </span>
                 )}
                 <div className="discover-card-content">
-                  <p className="eyebrow">{book.type || book.language || "KITOB"}</p>
+                  <p className="eyebrow">
+                    {book.type || book.language || "KITOB"}
+                  </p>
                   <h2>{book.title}</h2>
                   <p>{book.author}</p>
-                  <span>{book.viewCount} ko‘rish · {book._count.reviews} sharh</span>
+                  <span>
+                    {book.viewCount} ko‘rish · {book._count.reviews} sharh
+                  </span>
                 </div>
               </Link>
             ))}
